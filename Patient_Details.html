@@ -1,0 +1,567 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Texas Neurosurgery, L.L.P.</title>
+</head>
+      <script type="text/javascript">
+
+          function getUrl(varname) {
+
+              // First, we load the URL into a variable
+              var url = window.location.href;
+
+              // Next, split the url by the ?
+              var qparts = url.split("?");
+
+              // Check that there is a querystring, return "" if not
+              if (qparts.length == 0) {
+                  return "";
+              }
+
+              // Then find the querystring, everything after the ?
+              var query = qparts[1];
+              query = unescape(query);
+              return query;
+          }
+          function getValue(varname) {
+
+              // First, we load the URL into a variable
+              var url = window.location.href;
+
+              // Next, split the url by the ?
+              var qparts = url.split("?");
+
+              // Check that there is a querystring, return "" if not
+              if (qparts.length == 0) {
+                  return "";
+              }
+
+              // Then find the querystring, everything after the ?
+              var query = qparts[1];
+
+              // Split the query string into variables (separates by &s)
+              var vars = query.split("&");
+
+              // Initialize the value with "" as default
+              var value = "";
+               for (i = 0; i < vars.length; i++) {
+                  // Split the variable by =, which splits name and value
+                  var parts = vars[i].split("=");
+                  if (parts[0] == "last_txt") {
+                      value = parts[1].replace("+", " ").replace("+", " ");
+
+                  }
+                  if (parts[0] == "first_txt") {
+                      value = value + ', ' + parts[1].replace("+", " ").replace("+", " ");
+
+                  }
+                  if (parts[0] == "mi_txt") {
+                      value = value + ' ' + parts[1];
+                  }
+              }
+             /* for (i = 0; i < vars.length; i++) {
+                  // Split the variable by =, which splits name and value
+
+                  var parts = vars[i].split("=");
+                  if (parts[0] == "pt_name") {
+                      value = parts[1].replace("+", " ").replace("+", " ");
+
+                  }
+              }*/
+
+              // Convert escape code
+              value = unescape(value);
+
+              // Convert "+"s to " "s
+              value.replace(/\+/g, " ");
+              //  document.getElementById("sign2_pt").value = value
+              // Return the value
+              return value;
+          }
+
+          function getDate() {
+              // First, we load the URL into a variable
+              var url = window.location.href;
+
+              // Next, split the url by the ?
+              var qparts = url.split("?");
+
+              // Check that there is a querystring, return "" if not
+              if (qparts.length == 0) {
+                  return "";
+              }
+
+              // Then find the querystring, everything after the ?
+              var query = qparts[1];
+
+              // Split the query string into variables (separates by &s)
+              var vars = query.split("&");
+
+              // Initialize the value with "" as default
+              var value = "";
+              for (i = 0; i < vars.length; i++) {
+                  // Split the variable by =, which splits name and value
+
+                  var parts = vars[i].split("=");
+                  if (parts[0] == "sign_date1") {
+                      document.getElementById("sign5_date1").value = parts[1];
+                      document.getElementById("pt_date1").value = parts[1];
+                  }
+                  else
+                      if (parts[0] == "sign_date2") {
+
+                          document.getElementById("sign5_date2").value = parts[1];
+                          document.getElementById("pt_date2").value = parts[1];
+                      }
+                      else
+                          if (parts[0] == "sign_date3") {
+                              document.getElementById("sign5_date3").value = parts[1];
+                              document.getElementById("pt_date3").value = parts[1];
+                          }
+              }
+
+              // Convert escape code
+              value = unescape(value);
+
+              // Convert "+"s to " "s
+              value.replace(/\+/g, " ");
+
+              // Return the value
+              return value;
+          }
+          var err_mess;
+          
+          function IsEmpty() {
+              err_mess = "";
+                  if (document.getElementById("ptname1").value == "" || document.getElementById("pt_date1").value == "" || document.getElementById("pt_date2").value == "" || document.getElementById("pt_date3").value == "" || document.getElementById("sign5_pt").value == "" || document.getElementById("sign5_date1").value == "" || document.getElementById("sign5_date2").value == "" || document.getElementById("sign5_date3").value == "" || document.getElementById("phar_name").value == "" || document.getElementById("phar_ph").value == "") {
+                      if (document.getElementById("ptname1").value == "") {
+                          if (err_mess == "") {
+                              err_mess = "Patient Name";
+                              document.getElementById("ptname1").focus();
+                          }
+                          else {
+                              err_mess = err_mess + ", " + "Patient Name";
+                          }
+                      }
+
+                      if (document.getElementById("phar_name").value == "") {
+                          if (err_mess == "") {
+                              err_mess = "Pharmacy Name";
+                              document.getElementById("phar_name").focus();
+                          }
+                          else {
+                              err_mess = err_mess + ", " + "Pharmacy Name";
+                          }
+                      }
+
+                      if (document.getElementById("phar_ph").value == "") {
+                          if (err_mess == "") {
+                              err_mess = "Pharmacy Phone#";
+                              document.getElementById("phar_ph").focus();
+                          }
+                          else {
+                              err_mess = err_mess + ", " + "Pharmacy Phone#";
+                          }
+                      }
+                      if (document.getElementById("sign5_pt").value == "") {
+                          if (err_mess == "") {
+                              err_mess = "Patient Signature";
+                              document.getElementById("sign5_pt").focus();
+                          }
+                          else {
+                              err_mess = err_mess + ", " + "Patient Signature";
+                          }
+                      }
+                      if (err_mess != "") {
+                          err_mess = "Please enter " + err_mess;
+                          alert(err_mess);
+                      }
+                  else {
+                     alert("Fields in Red are required");
+                  }
+                      return false;
+                  }
+                  else {
+                      var varl;
+                      var1 = Check_others();
+
+                      if (var1 == "false") {
+
+                          alert("Fields in Red are required");
+                          return false;
+                      }
+                      else {
+
+                          return true;
+                      }
+
+
+                  }
+              }
+
+              function Check_others() {
+                  var val;
+                  val = "false";
+                 
+                      for (i1 = 1; i1 <= 2; i1++) {
+
+                          if (document.getElementById('nkda' + i1).checked == true) {
+                             
+                              val = "true";
+                              break;
+                          }
+                          else {
+                              val = "false";
+                              document.getElementById("nkda" + i1).focus();
+                              err_mess = "Please choose known drug allergies";
+                          }
+
+                      }
+                  
+                  if (val == "true") {
+                      for (i1 = 1; i1 <= 2; i1++) {
+
+                          if (document.getElementById('allerg' + i1).checked == true) {
+                              // alert(document.getElementById('rel_lvlinfo' + i1).checked);
+                              val = "true";
+                              break;
+                          }
+                          else {
+                              val = "false";
+                              document.getElementById("allerg" + i1).focus();
+                              err_mess = "Please choose other allergies";
+                          }
+
+                      }
+                  }
+                  if (val == "false") {
+                      alert(err_mess);
+                      return val;
+                  }
+                  else {
+                      return val;
+                  }
+
+              }
+        </script>
+<body>
+    <form action="All_PatientDetails.aspx" >
+
+        <table>
+            <tr>
+                <td> Texas Neurosurgery, L.L.P.</td>
+            </tr>
+            <tr>
+                <td>Patient Name:
+             <input type="text" style="border-color: red; width: 205px" name="ptname1" id="ptname1" tabindex="1" /></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DATE:  &nbsp;<input style="border-color: red" type="text" required="required" name="date1pt" id="pt_date1" size="2" tabindex="2" readonly />/
+                <input style="border-color: red" type="text" name="date2pt" id="pt_date2" required="required"  size="2" tabindex="3" readonly />/
+                <input style="border-color: red" type="text" name="date3pt" id="pt_date3" required="required" size="4" tabindex="4" readonly /><br />
+                    &nbsp;
+
+                </td>
+            </tr>
+        </table>
+      
+        <center>
+    <table border="1" style="width:100%" >
+        <tr>
+            <td>
+                <table border="1" style="text-align:center;background-color:#BED3F3; width:100%" >
+                    <tr>
+                        <td>
+                            EMERGENCY CONTACTS
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>  </center>
+        <table>
+            <tr>
+                <td>PRIMARY emergency contact NAME: 
+                    <input type="text" style="width: 266px;border-color: red" name="pri_name" id="pri_name" />
+                </td>
+				<td>
+				Secondary emergency contact NAME: 
+			
+				 <input type="text" style="width: 266px;border-color: red" name="sec_name" id="sec_name"/>
+				 </td>
+				</tr>
+				<tr>
+                <td>PHONE NUMBER(Different from paitent name ): 
+                    <input type="text" style="width: 147px;border-color: red" name="phar_ph" id="phar_ph" /></td>
+            </tr>
+            <tr>
+                <td>PHARMACY ADDRESS:&nbsp;&nbsp;&nbsp;&nbsp; 
+                <input type="text" style="width: 383px; height: 26px" name="phar_addr" />
+                </td>
+            </tr>
+        </table>
+        <center>
+    <table border="1" style="width:100%" >
+        <tr>
+            <td>
+                <table border="1" style="text-align:center;background-color:#BED3F3; width:100%" >
+                    <tr>
+                        <td>
+                            MEDICATION ALLERGIES
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>  </center>    
+
+         <label style="color: #FF0000" ><input id="nkda1" name="drugs" value="No Known Drug Allergies" type="radio" />No Known Drug Allergies <input id="nkda2" name="drugs" value="Yes I have known Drug Allergies (name and symptoms) " type="radio" />Yes I have known Drug Allergies (Please list name and symptoms)           	        
+              </label>  	      
+        <br />
+        &nbsp;1.
+        <input type="text" name="drug1" style="width: 322px" />
+        <input type="text" name="drug1_symp" style="width: 283px" /><br />
+        &nbsp;2.
+        <input type="text" name="drug2" style="width: 322px" />
+        <input type="text" name="drug2_symp" style="width: 283px" />
+        <br />
+         &nbsp;3.
+        <input type="text" name="drug3" style="width: 322px" />
+        <input type="text" name="drug3_symp" style="width: 283px" />
+        <br />
+
+
+       <label style="color: #FF0000" > <input id="allerg1" name="oth_all" type="radio" value="No Other Allergies (latex, contrast or adhesives..)" />No Other Allergies (latex, contrast or adhesives..)  <input id="allerg2" name="oth_all" type="radio" value="Yes I have Other Allergies to things like latex, contrast or adhesives (name and symptoms)" />
+        Yes I have Other Allergies to things like latex, contrast or adhesives (Please list name and symptoms)           
+		</label>	            	      
+        <br />
+        &nbsp;1.
+        <input type="text" style="width: 324px" name="oth_drug1" />
+        <input type="text" style="width: 279px" name="oth_drug1_symp" />
+
+        <br />
+        &nbsp;2.
+        <input type="text" style="width: 324px" name="oth_drug2" />
+        <input type="text" style="width: 279px" name="oth_drug2_symp" />
+        <br />
+        <center>
+    <table border="1" style="width:100%" >
+        <tr>
+            <td>
+                <table border="1" style="text-align:center;background-color:#BED3F3; width:100%" >
+                    <tr>
+                        <td>
+                            CURRENT MEDICATIONS/SUPPLEMENTS
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>  </center>
+        <center>LIST ALL THE CURRENT MEDICATIONS, SUPPLEMENTS, AND OVER THE COUNTER MEDS YOU ARE TAKING</center>
+        <table>
+
+            <tr>
+                <td>NAME:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
+                <td>DOSE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	</td>
+                <td>FREQUENCY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	</td>
+                <td>REASON PRESCRIBED:</td>
+            </tr>
+            
+            <tr>
+                <td>
+                    <input type="text" name="all1" style="width: 313px" />
+                </td>
+                <td>
+                    <input type="text" name="all1_dose" style="width: 113px" />
+                </td>
+                <td>
+                    <input type="text" name="all1_freq" style="width: 213px" />
+                </td>
+                <td>
+                    <input type="text" style="width: 313px" name="all1_reason" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="all2" style="width: 313px" />
+                </td>
+                <td>
+                    <input type="text" name="all2_dose" style="width: 113px" />
+                </td>
+                <td>
+                    <input type="text" name="all2_freq" style="width: 213px" />
+                </td>
+                <td>
+                    <input type="text" name="all2_reason" style="width: 313px" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="all3" style="width: 313px" />
+                </td>
+                <td>
+                    <input type="text" name="all3_dose" style="width: 113px" />
+                </td>
+                <td>
+                    <input type="text" name="all3_freq" style="width: 213px" />
+                </td>
+                <td>
+                    <input type="text" name="all3_reason" style="width: 313px" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="all4" style="width: 313px" />
+                </td>
+                <td>
+                    <input type="text" name="all4_dose" style="width: 113px" />
+                </td>
+                <td>
+                    <input type="text" name="all4_freq" style="width: 213px" />
+                </td>
+                <td>
+                    <input type="text" name="all4_reason" style="width: 313px" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="all5" style="width: 313px" />
+                </td>
+                <td>
+                    <input type="text" name="all5_dose" style="width: 113px" />
+                </td>
+                <td>
+                    <input type="text" name="all5_freq" style="width: 213px" />
+                </td>
+                <td>
+                    <input type="text" name="all5_reason" style="width: 313px" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="all6" style="width: 313px" />
+                </td>
+                <td>
+                    <input type="text" name="all6_dose" style="width: 113px" />
+                </td>
+                <td>
+                    <input type="text" name="all6_freq" style="width: 213px" />
+                </td>
+                <td>
+                    <input type="text" name="all6_reason" style="width: 313px" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="all7" style="width: 313px" />
+                </td>
+                <td>
+                    <input type="text" name="all7_dose" style="width: 113px" />
+                </td>
+                <td>
+                    <input type="text" name="all7_freq" style="width: 213px" />
+                </td>
+                <td>
+                    <input type="text" name="all7_reason" style="width: 313px" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="all8" style="width: 313px" />
+                </td>
+                <td>
+                    <input type="text" name="all8_dose" style="width: 113px" />
+                </td>
+                <td>
+                    <input type="text" name="all8_freq" style="width: 213px" />
+                </td>
+                <td>
+                    <input type="text" name="all8_reason" style="width: 313px" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="all9" style="width: 313px" />
+                </td>
+                <td>
+                    <input type="text" name="all9_dose" style="width: 113px" />
+                </td>
+                <td>
+                    <input type="text" name="all9_freq" style="width: 213px" />
+                </td>
+                <td>
+                    <input type="text" name="all9_reason" style="width: 313px" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="all10" style="width: 313px" />
+                </td>
+                <td>
+                    <input type="text" name="all10_dose" style="width: 113px" />
+                </td>
+                <td>
+                    <input type="text" name="all10_freq" style="width: 213px" />
+                </td>
+                <td>
+                    <input type="text" style="width: 313px" name="all10_reason" />
+                </td>
+            </tr>
+             <tr>
+                <td>
+                    <input type="text" name="all11" style="width: 313px" />
+                </td>
+                <td>
+                    <input type="text" name="all11_dose" style="width: 113px" />
+                </td>
+                <td>
+                    <input type="text" name="all11_freq" style="width: 213px" />
+                </td>
+                <td>
+                    <input type="text" style="width: 313px" name="all11_reason" />
+                </td>
+            </tr>
+             <tr>
+                <td>
+                    <input type="text" name="all12" style="width: 313px" />
+                </td>
+                <td>
+                    <input type="text" name="all12_dose" style="width: 113px" />
+                </td>
+                <td>
+                    <input type="text" name="all12_freq" style="width: 213px" />
+                </td>
+                <td>
+                    <input type="text" style="width: 313px" name="all12_reason" />
+                </td>
+            </tr>
+        </table>
+        <label style="color: #FF0000" > 
+I understand that prescription refills should be handled at the time of the office visit whenever possible. It is my responsibility to know<br />
+        when my prescription is about to run out. A good rule of thumb is to always have at least
+        a three day supply in hand.
+        <br />
+        Medication refills are only handled during regular business hours and will not be addressed after business hours or on weekends. <br />
+        <br /></label>
+        Signature of Patient/Guardian:
+        <input type="text" style="border-color: red; width: 205px" name="sign5" id="sign5_pt" required="required" tabindex="5" />&nbsp; 
+     DATE:  &nbsp;<input style="border-color: red" type="text" name="sign5_date1" id="sign5_date1" required="required"   size="2" tabindex="6" readonly />/
+                <input style="border-color: red" type="text" name="sign5_date2" id="sign5_date2" required="required" size="2" tabindex="7" readonly />/
+                <input style="border-color: red" type="text" name="sign5_date3"  id="sign5_date3" required="required" size="4" tabindex="8" readonly />
+        <br />
+        <input type="submit" name="submit" onclick="return IsEmpty()" value="Next" style="background-color: #82ADE3" tabindex="89" />
+        <input type="hidden" id="url4" name="form_name" value="pt_form" />
+    </form>
+
+        <script type="text/javascript">
+<!-- hide
+    var name = getValue();
+    //var url = getUrl("");
+    var dt = getDate();
+    //document.getElementById("sign5_pt").value = name;
+    document.getElementById("ptname1").value = name;
+
+  //  document.getElementById("url4").value = url.replace("&", "|");
+    // end hide -->
+</script>
+</body>
+</html>
